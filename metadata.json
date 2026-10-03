@@ -1,0 +1,6 @@
+{
+  "name": "Roshoi Ghor - Authentic Bengali Restaurant & Delivery",
+  "description": "Authentic Bengali restaurant and delivery platform featuring traditional delicacies, 25km delivery radius engine, live order tracking, and interactive kitchen manager.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
