@@ -70,7 +70,7 @@ export const RestaurantGallerySection: React.FC = () => {
     : GALLERY_PHOTOS.filter((p) => p.category === activeCategory);
 
   return (
-    <section id="gallery-section" className="py-14 sm:py-20 bg-[#FFFDF9] border-t border-orange-200/80">
+    <section id="gallery-section" className="py-14 sm:py-20 bg-transparent border-t border-orange-200/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-10">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-2">

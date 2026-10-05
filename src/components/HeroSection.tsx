@@ -13,7 +13,7 @@ export const HeroSection: React.FC = () => {
   };
 
   return (
-    <section className="relative overflow-hidden bg-[#FAFAF7] pt-8 pb-16 sm:pt-14 sm:pb-24 border-b border-stone-200/60">
+    <section className="relative overflow-hidden bg-transparent pt-8 pb-16 sm:pt-14 sm:pb-24 border-b border-orange-200/20">
       {/* Decorative dot sprinkles matching reference (top-left & bottom-right) */}
       <div className="absolute top-6 left-6 w-32 h-32 sprinkles-pattern opacity-40 pointer-events-none" />
       <div className="absolute bottom-6 right-6 w-36 h-36 sprinkles-pattern opacity-40 pointer-events-none" />

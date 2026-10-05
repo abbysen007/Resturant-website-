@@ -20,9 +20,9 @@ export const DishCard: React.FC<DishCardProps> = ({ dish }) => {
   const quantity = cartItem?.quantity || 0;
 
   return (
-    <div className="rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border-0 flex flex-col justify-between group hover:-translate-y-1 bg-[#FAF6EE]">
+    <div className="rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-white/60 flex flex-col justify-between group hover:-translate-y-1 bg-white/55 backdrop-blur-xl">
       {/* --- UPPER HALF: WARM CREAM PARCHMENT WITH CIRCULAR KANSA BRASS PLATE --- */}
-      <div className="relative pt-6 pb-4 px-4 bg-[#F8F3E8] flex flex-col items-center justify-center overflow-hidden">
+      <div className="relative pt-6 pb-4 px-4 bg-white/35 backdrop-blur-md flex flex-col items-center justify-center overflow-hidden">
         {/* Subtle Traditional Bengali Seal in Top Corner matching reference */}
         <div className="absolute top-3.5 left-3.5 flex items-center gap-1.5 opacity-80">
           <div className="w-7 h-7 rounded-xl border border-amber-800/40 text-amber-900 flex items-center justify-center text-xs font-black bg-amber-50">
@@ -90,7 +90,7 @@ export const DishCard: React.FC<DishCardProps> = ({ dish }) => {
       </div>
 
       {/* --- LOWER HALF: DEEP TERRACOTTA / CRIMSON WITH BOLD TYPOGRAPHY (MATCHING REFERENCE) --- */}
-      <div className="bg-[#842222] text-white p-5 sm:p-6 space-y-3 relative flex-1 flex flex-col justify-between">
+      <div className="bg-[#842222]/90 backdrop-blur-md text-white p-5 sm:p-6 space-y-3 relative flex-1 flex flex-col justify-between">
         {/* Subtle mandala watermark in corner */}
         <div className="absolute right-0 bottom-0 w-32 h-32 opacity-10 pointer-events-none rounded-full border-4 border-amber-300" />
 

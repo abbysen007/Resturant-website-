@@ -46,11 +46,12 @@ const AppContent: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-transparent text-slate-800 relative selection:bg-orange-200 selection:text-orange-950">
-      {/* Fully Transparent & Floating Ambient Backdrops */}
-      <div className="fixed inset-0 pointer-events-none -z-10 bg-gradient-to-br from-[#FFFDF8] via-[#FFF9EE]/70 to-[#FFF3E0]/50 backdrop-blur-3xl">
-        <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-orange-300/15 rounded-full blur-[140px]" />
-        <div className="absolute top-1/3 left-10 w-[500px] h-[500px] bg-amber-300/20 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-10 w-[600px] h-[600px] bg-red-300/12 rounded-full blur-[150px]" />
+      {/* Super Transparent Ambient Luminous Backdrops */}
+      <div className="fixed inset-0 pointer-events-none -z-10 bg-transparent overflow-hidden">
+        <div className="absolute -top-32 right-1/4 w-[750px] h-[750px] bg-gradient-to-br from-orange-400/12 via-amber-300/10 to-transparent rounded-full blur-[160px]" />
+        <div className="absolute top-1/4 -left-32 w-[650px] h-[650px] bg-gradient-to-tr from-amber-400/14 via-rose-300/10 to-transparent rounded-full blur-[150px]" />
+        <div className="absolute top-2/3 right-10 w-[700px] h-[700px] bg-gradient-to-bl from-orange-300/12 via-yellow-200/10 to-transparent rounded-full blur-[170px]" />
+        <div className="absolute -bottom-32 left-1/3 w-[800px] h-[800px] bg-gradient-to-t from-amber-300/12 via-orange-200/10 to-transparent rounded-full blur-[160px]" />
       </div>
 
       {/* Google Maps Quota Warning Banner */}
@@ -59,59 +60,41 @@ const AppContent: React.FC = () => {
       {/* Main Navigation Bar */}
       <Navbar />
 
-      {/* Main View Switching with Smooth Framer Motion Scroll Triggers */}
+      {/* Main View Switching */}
       <main className="flex-1">
         {activeCustomerTab === 'menu' && (
           <>
             {/* 1. Hero Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
-            >
-              <HeroSection />
-            </motion.div>
+            <HeroSection />
 
             {/* 2. Popular Dishes Carousel / Grid with Floating Bestsellers */}
-            <motion.div {...sectionMotionProps}>
-              <PopularDishesSection />
-            </motion.div>
+            <PopularDishesSection />
 
             {/* 3. Restaurant Images & Heritage Kitchen Gallery */}
-            <motion.div {...sectionMotionProps}>
-              <RestaurantGallerySection />
-            </motion.div>
+            <RestaurantGallerySection />
 
             {/* 4. Traditional Festive Bhoj Thalis */}
-            <motion.div {...sectionMotionProps}>
-              <BhojMenuSection />
-            </motion.div>
+            <BhojMenuSection />
 
-            {/* 5. Our Regular Menu Pack (Borderless & Transparent) */}
-            <motion.div {...sectionMotionProps}>
+            {/* 5. Our Regular Menu Pack (Always Visible on Mobile and Desktop) */}
+            <div id="regular-menu-container" className="w-full block">
               <MenuSection />
-            </motion.div>
+            </div>
 
             {/* 6. Dinner Table Reservation Banner */}
-            <motion.div {...sectionMotionProps}>
-              <ReserveTableBanner />
-            </motion.div>
+            <ReserveTableBanner />
 
             {/* 7. Customer Testimonials (Floating Sideways) */}
-            <motion.div {...sectionMotionProps}>
-              <CustomerReviewsSection />
-            </motion.div>
+            <CustomerReviewsSection />
           </>
         )}
 
         {activeCustomerTab === 'bhoj-menu' && (
           <>
-            <motion.div {...sectionMotionProps}>
-              <BhojMenuSection />
-            </motion.div>
-            <motion.div {...sectionMotionProps}>
+            <BhojMenuSection />
+            <div id="regular-menu-container-bhoj" className="w-full block">
               <MenuSection />
-            </motion.div>
+            </div>
           </>
         )}
 

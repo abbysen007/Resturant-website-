@@ -15,7 +15,7 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-[#FAF8F5] text-slate-700 border-t border-stone-200/80 pt-16 pb-12">
+    <footer className="bg-white/40 backdrop-blur-2xl text-slate-700 border-t border-orange-200/30 pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-12">
         {/* Brand Header & Newsletter Row matching reference */}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-stone-200">

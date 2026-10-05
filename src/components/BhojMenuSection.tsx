@@ -195,7 +195,7 @@ export const BhojMenuSection: React.FC = () => {
     : BHOJ_SPECIALS.filter((c) => c.id.includes(selectedDay));
 
   return (
-    <section id="bhoj-menu-section" className="py-12 sm:py-20 bg-[#FFFDF9] border-t border-orange-200/80">
+    <section id="bhoj-menu-section" className="py-12 sm:py-20 bg-transparent border-t border-orange-200/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-2">

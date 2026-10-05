@@ -78,8 +78,8 @@ export const CustomerReviewsSection: React.FC = () => {
         onMouseLeave={() => setIsPaused(false)}
       >
         {/* Soft edge blur masks for floating feel */}
-        <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-[#FFFDF9] via-[#FFFDF9]/80 to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-[#FFFDF9] via-[#FFFDF9]/80 to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-20 bg-gradient-to-r from-white/20 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-20 bg-gradient-to-l from-white/20 to-transparent z-10 pointer-events-none" />
 
         <motion.div
           className="flex gap-6 w-max"

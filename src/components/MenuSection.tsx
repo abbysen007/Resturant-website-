@@ -51,14 +51,14 @@ export const MenuSection: React.FC = () => {
       </div>
 
       {/* Pill Category Buttons matching reference */}
-      <div className="flex items-center justify-start sm:justify-center gap-2.5 overflow-x-auto pb-4 mb-8 no-scrollbar">
+      <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto touch-pan-x pb-3 mb-6 no-scrollbar w-full">
         {CATEGORIES.map((cat) => {
           const isActive = activeCategory === cat.id;
           return (
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-extrabold whitespace-nowrap transition-all cursor-pointer border-0 ${
+              className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-extrabold whitespace-nowrap transition-all cursor-pointer border-0 shrink-0 ${
                 isActive
                   ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-md shadow-orange-500/20'
                   : 'bg-white/80 backdrop-blur-md hover:bg-white text-stone-600 shadow-2xs hover:shadow-sm'
@@ -71,8 +71,8 @@ export const MenuSection: React.FC = () => {
       </div>
 
       {/* Optional Search & Veg/Non-Veg Quick Toggle */}
-      <div className="max-w-md mx-auto mb-8 flex items-center gap-2">
-        <div className="relative flex-1">
+      <div className="max-w-md mx-auto mb-8 flex flex-col sm:flex-row items-center gap-2.5">
+        <div className="relative w-full flex-1">
           <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
           <input
             type="text"
@@ -83,7 +83,7 @@ export const MenuSection: React.FC = () => {
           />
         </div>
 
-        <div className="flex bg-white/80 backdrop-blur-md p-1 rounded-full text-xs font-bold text-slate-700 shadow-xs border-0">
+        <div className="flex bg-white/80 backdrop-blur-md p-1 rounded-full text-xs font-bold text-slate-700 shadow-xs border-0 shrink-0">
           <button
             onClick={() => setDietaryFilter('all')}
             className={`px-3 py-1 rounded-full cursor-pointer transition-colors border-0 ${
@@ -112,11 +112,29 @@ export const MenuSection: React.FC = () => {
       </div>
 
       {/* 4-Column Grid matching reference */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {filteredDishes.map((dish) => (
-          <DishCard key={dish.id} dish={dish} />
-        ))}
-      </div>
+      {filteredDishes.length === 0 ? (
+        <div className="text-center py-12 px-4 bg-white/70 backdrop-blur-md rounded-3xl border border-orange-100 max-w-md mx-auto space-y-3">
+          <p className="text-stone-600 font-bold text-xs sm:text-sm">
+            No dishes match your selected filter "{searchQuery || activeCategory}".
+          </p>
+          <button
+            onClick={() => {
+              setActiveCategory('all');
+              setDietaryFilter('all');
+              setSearchQuery('');
+            }}
+            className="px-4 py-2 rounded-full bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs shadow-xs transition-all cursor-pointer"
+          >
+            Reset Filters &amp; View All Bengali Dishes
+          </button>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+          {filteredDishes.map((dish) => (
+            <DishCard key={dish.id} dish={dish} />
+          ))}
+        </div>
+      )}
     </section>
   );
 };

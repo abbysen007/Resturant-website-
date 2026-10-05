@@ -5,7 +5,7 @@ export const ReserveTableBanner: React.FC = () => {
   const { setIsReservationModalOpen } = useRestaurant();
 
   return (
-    <section className="py-14 sm:py-20 bg-[#FAFAF7] border-y border-stone-200/60 overflow-hidden">
+    <section className="py-14 sm:py-20 bg-transparent overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           {/* Left Text */}
