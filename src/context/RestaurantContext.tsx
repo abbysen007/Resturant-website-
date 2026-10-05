@@ -6,7 +6,9 @@ import {
   OrderStatus,
   CustomerLocation,
   DeliveryMode,
-  PaymentMethod
+  PaymentMethod,
+  UserProfile,
+  SavedAddress
 } from '../types';
 import { INITIAL_MENU_ITEMS, RESTAURANT_LOCATION, PRESET_TEST_LOCATIONS } from '../data/menuData';
 import { calculateHaversineDistanceKm, calculateDeliveryFee, estimateDeliveryMinutes } from '../utils/distance';
@@ -79,6 +81,33 @@ interface RestaurantContextType {
   // Table reservation
   isReservationModalOpen: boolean;
   setIsReservationModalOpen: (open: boolean) => void;
+
+  // User Authentication & Panel
+  user: UserProfile | null;
+  loginWithGoogle: (email?: string, name?: string, avatar?: string) => void;
+  loginWithNumber: (phone: string, name?: string) => void;
+  logout: () => void;
+  isUserPanelOpen: boolean;
+  setIsUserPanelOpen: (open: boolean) => void;
+  isAuthModalOpen: boolean;
+  setIsAuthModalOpen: (open: boolean) => void;
+  addSavedAddress: (addr: Omit<SavedAddress, 'id'>) => void;
+  deleteSavedAddress: (id: string) => void;
+  toggleFavoriteDish: (dishId: string) => void;
+
+  // Customer Contact & Detailed Address
+  customerDetails: {
+    name: string;
+    phone: string;
+    flatDetails: string;
+    landmark: string;
+  };
+  setCustomerDetails: (details: {
+    name: string;
+    phone: string;
+    flatDetails: string;
+    landmark: string;
+  }) => void;
 
   // Reset demo data
   resetDemoData: () => void;
@@ -259,6 +288,187 @@ export const RestaurantProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   // Modals
   const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
   const [isReservationModalOpen, setIsReservationModalOpen] = useState(false);
+
+  // User Authentication & Panel State
+  const [user, setUser] = useState<UserProfile | null>(() => {
+    try {
+      const saved = localStorage.getItem('roshoi_user');
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
+
+  const [isUserPanelOpen, setIsUserPanelOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
+  // Customer Contact & Detailed Address State
+  const [customerDetails, setCustomerDetailsState] = useState<{
+    name: string;
+    phone: string;
+    flatDetails: string;
+    landmark: string;
+  }>(() => {
+    try {
+      const saved = localStorage.getItem('roshoi_customer_details');
+      return saved ? JSON.parse(saved) : {
+        name: 'Abhijit Sen',
+        phone: '+91 98301 23456',
+        flatDetails: 'Flat 4B, Heritage Enclave',
+        landmark: 'Near Park Mansions'
+      };
+    } catch {
+      return {
+        name: 'Abhijit Sen',
+        phone: '+91 98301 23456',
+        flatDetails: 'Flat 4B, Heritage Enclave',
+        landmark: 'Near Park Mansions'
+      };
+    }
+  });
+
+  const setCustomerDetails = (details: {
+    name: string;
+    phone: string;
+    flatDetails: string;
+    landmark: string;
+  }) => {
+    setCustomerDetailsState(details);
+    localStorage.setItem('roshoi_customer_details', JSON.stringify(details));
+  };
+
+  const loginWithGoogle = (email?: string, name?: string, avatar?: string) => {
+    const userName = name || 'Abhijit Sen';
+    const userEmail = email || 'senabby420@gmail.com';
+    const newUser: UserProfile = {
+      id: `usr-${Date.now()}`,
+      name: userName,
+      email: userEmail,
+      avatar: avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+      authProvider: 'google',
+      memberTier: 'সোনার সদস্য • Shonali Gold VIP',
+      points: 480,
+      savedAddresses: [
+        {
+          id: 'addr-1',
+          tag: 'home',
+          name: userName,
+          phone: customerDetails.phone || '+91 98301 23456',
+          flatDetails: 'Flat 4B, Heritage Enclave',
+          landmark: 'Near Park Mansions',
+          fullAddress: '18/1 Park Street, Kolkata',
+          city: 'Kolkata',
+          lat: 22.5519,
+          lng: 88.3530,
+          distanceKm: 0.2
+        },
+        {
+          id: 'addr-2',
+          tag: 'work',
+          name: userName,
+          phone: customerDetails.phone || '+91 98301 23456',
+          flatDetails: 'Floor 8, Godrej Waterside Tower',
+          landmark: 'Sector V Ring Road',
+          fullAddress: 'Sector V, Salt Lake City, Kolkata',
+          city: 'Kolkata',
+          lat: 22.5735,
+          lng: 88.4331,
+          distanceKm: 8.4
+        }
+      ],
+      favoriteDishIds: ['curry-1', 'curry-2', 'rice-1', 'thali-1']
+    };
+    setUser(newUser);
+    localStorage.setItem('roshoi_user', JSON.stringify(newUser));
+    setCustomerDetailsState((prev) => ({
+      ...prev,
+      name: userName,
+      phone: prev.phone || '+91 98301 23456'
+    }));
+    setIsAuthModalOpen(false);
+  };
+
+  const loginWithNumber = (phone: string, name?: string) => {
+    const userName = name || 'Kolkata Foodie';
+    const newUser: UserProfile = {
+      id: `usr-${Date.now()}`,
+      name: userName,
+      phone: phone,
+      authProvider: 'number',
+      memberTier: 'রৌপ্য সদস্য • Silver Foodie',
+      points: 250,
+      savedAddresses: [
+        {
+          id: 'addr-1',
+          tag: 'home',
+          name: userName,
+          phone: phone,
+          flatDetails: customerDetails.flatDetails || 'House 22, Heritage Lane',
+          landmark: customerDetails.landmark || 'Near Metro Gate',
+          fullAddress: customerLocation.address,
+          city: customerLocation.city,
+          lat: customerLocation.lat,
+          lng: customerLocation.lng,
+          distanceKm: customerLocation.distanceKm
+        }
+      ],
+      favoriteDishIds: ['curry-1', 'thali-1']
+    };
+    setUser(newUser);
+    localStorage.setItem('roshoi_user', JSON.stringify(newUser));
+    setCustomerDetailsState((prev) => ({
+      ...prev,
+      name: userName,
+      phone: phone
+    }));
+    setIsAuthModalOpen(false);
+  };
+
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('roshoi_user');
+    setIsUserPanelOpen(false);
+  };
+
+  const addSavedAddress = (addr: Omit<SavedAddress, 'id'>) => {
+    if (!user) return;
+    const newAddr: SavedAddress = {
+      ...addr,
+      id: `addr-${Date.now()}`
+    };
+    const updatedUser: UserProfile = {
+      ...user,
+      savedAddresses: [newAddr, ...user.savedAddresses]
+    };
+    setUser(updatedUser);
+    localStorage.setItem('roshoi_user', JSON.stringify(updatedUser));
+  };
+
+  const deleteSavedAddress = (id: string) => {
+    if (!user) return;
+    const updatedUser: UserProfile = {
+      ...user,
+      savedAddresses: user.savedAddresses.filter((a) => a.id !== id)
+    };
+    setUser(updatedUser);
+    localStorage.setItem('roshoi_user', JSON.stringify(updatedUser));
+  };
+
+  const toggleFavoriteDish = (dishId: string) => {
+    if (!user) {
+      setIsAuthModalOpen(true);
+      return;
+    }
+    const exists = user.favoriteDishIds.includes(dishId);
+    const updatedUser: UserProfile = {
+      ...user,
+      favoriteDishIds: exists
+        ? user.favoriteDishIds.filter((id) => id !== dishId)
+        : [...user.favoriteDishIds, dishId]
+    };
+    setUser(updatedUser);
+    localStorage.setItem('roshoi_user', JSON.stringify(updatedUser));
+  };
 
   // Sync state to local storage
   useEffect(() => {
@@ -587,6 +797,23 @@ export const RestaurantProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
         isReservationModalOpen,
         setIsReservationModalOpen,
+
+        // User Auth & Profile
+        user,
+        loginWithGoogle,
+        loginWithNumber,
+        logout,
+        isUserPanelOpen,
+        setIsUserPanelOpen,
+        isAuthModalOpen,
+        setIsAuthModalOpen,
+        addSavedAddress,
+        deleteSavedAddress,
+        toggleFavoriteDish,
+
+        // Customer details
+        customerDetails,
+        setCustomerDetails,
 
         resetDemoData
       }}

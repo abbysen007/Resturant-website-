@@ -77,3 +77,31 @@ export interface RestaurantCoordinates {
   bengaliName: string;
   phone: string;
 }
+
+export interface SavedAddress {
+  id: string;
+  tag: 'home' | 'work' | 'other';
+  name: string;
+  phone: string;
+  flatDetails: string;
+  landmark: string;
+  fullAddress: string;
+  city: string;
+  lat: number;
+  lng: number;
+  distanceKm: number;
+}
+
+export interface UserProfile {
+  id: string;
+  name: string;
+  email?: string;
+  phone?: string;
+  avatar?: string;
+  authProvider: 'google' | 'number';
+  memberTier: string;
+  points: number;
+  savedAddresses: SavedAddress[];
+  favoriteDishIds: string[];
+}
+

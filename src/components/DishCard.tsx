@@ -20,7 +20,7 @@ export const DishCard: React.FC<DishCardProps> = ({ dish }) => {
   const quantity = cartItem?.quantity || 0;
 
   return (
-    <div className="rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-stone-200/80 flex flex-col justify-between group hover:-translate-y-1 bg-[#FAF6EE]">
+    <div className="rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border-0 flex flex-col justify-between group hover:-translate-y-1 bg-[#FAF6EE]">
       {/* --- UPPER HALF: WARM CREAM PARCHMENT WITH CIRCULAR KANSA BRASS PLATE --- */}
       <div className="relative pt-6 pb-4 px-4 bg-[#F8F3E8] flex flex-col items-center justify-center overflow-hidden">
         {/* Subtle Traditional Bengali Seal in Top Corner matching reference */}

@@ -55,15 +55,15 @@ export const HeroSection: React.FC = () => {
           </div>
 
           {/* Right Plate & Floating Categories Column */}
-          <div className="lg:col-span-6 relative flex items-center justify-center">
+          <div className="lg:col-span-6 relative flex flex-col sm:flex-row items-center justify-center">
             {/* Concentric radial soft rings background */}
-            <div className="relative w-80 h-80 sm:w-96 sm:h-96 flex items-center justify-center">
+            <div className="relative w-72 h-72 sm:w-96 sm:h-96 flex items-center justify-center">
               <div className="absolute inset-0 rounded-full bg-[#F3EDE2] opacity-80" />
-              <div className="absolute inset-6 rounded-full bg-[#EFE4D2] opacity-70" />
-              <div className="absolute inset-12 rounded-full bg-white shadow-lg" />
+              <div className="absolute inset-4 sm:inset-6 rounded-full bg-[#EFE4D2] opacity-70" />
+              <div className="absolute inset-8 sm:inset-12 rounded-full bg-white shadow-lg" />
 
               {/* Main Circular Food Plate matching reference */}
-              <div className="relative w-64 h-64 sm:w-76 sm:h-76 rounded-full overflow-hidden shadow-2xl border-4 border-white">
+              <div className="relative w-56 h-56 sm:w-76 sm:h-76 rounded-full overflow-hidden shadow-2xl border-4 border-white">
                 <img
                   src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=800&q=80"
                   alt="Authentic Bengali Shorshe Ilish & Steamed Fish Feast"
@@ -72,12 +72,12 @@ export const HeroSection: React.FC = () => {
               </div>
 
               {/* Floating leaf at top */}
-              <div className="absolute -top-4 right-20 w-12 h-12 rotate-45 pointer-events-none drop-shadow-md">
-                <span className="text-3xl">🍃</span>
+              <div className="absolute -top-3 right-14 sm:right-20 w-10 h-10 sm:w-12 sm:h-12 rotate-45 pointer-events-none drop-shadow-md">
+                <span className="text-2xl sm:text-3xl">🍃</span>
               </div>
             </div>
 
-            {/* Vertical Pill Category List on Right (Exact match from reference mockup!) */}
+            {/* Vertical Pill Category List on Right (Desktop & Tablet) */}
             <div className="hidden sm:flex flex-col gap-2.5 ml-4 sm:ml-6 shrink-0">
               {[
                 { label: 'Dishes', icon: '🍲', category: 'curries' },
@@ -94,6 +94,26 @@ export const HeroSection: React.FC = () => {
                   <span className="w-6 h-6 rounded-full bg-amber-50 flex items-center justify-center text-sm">
                     {item.icon}
                   </span>
+                  <span>{item.label}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Horizontal Pill Category List on Mobile */}
+            <div className="flex sm:hidden items-center justify-center gap-2 overflow-x-auto w-full pt-4 pb-1 no-scrollbar">
+              {[
+                { label: 'Dishes', icon: '🍲', category: 'curries' },
+                { label: 'Dessert', icon: '🍮', category: 'desserts' },
+                { label: 'Drinks', icon: '🍹', category: 'beverages' },
+                { label: 'Platter', icon: '🍱', category: 'thalis' },
+                { label: 'Snacks', icon: '🥟', category: 'starters' }
+              ].map((item) => (
+                <button
+                  key={item.label}
+                  onClick={() => scrollToSection('menu-section')}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 border border-stone-200/80 shadow-xs text-[11px] font-bold text-slate-800 shrink-0 cursor-pointer"
+                >
+                  <span className="text-xs">{item.icon}</span>
                   <span>{item.label}</span>
                 </button>
               ))}

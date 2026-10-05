@@ -33,17 +33,30 @@ export const CheckoutModal: React.FC = () => {
     discountAmount,
     grandTotal,
     createOrder,
-    cartSpecialInstructions
+    cartSpecialInstructions,
+    customerDetails,
+    user
   } = useRestaurant();
 
   const [deliveryMode, setDeliveryMode] = useState<DeliveryMode>(
     customerLocation.isWithin25Km ? 'delivery' : 'takeaway'
   );
-  const [customerName, setCustomerName] = useState('Ananya Sen');
-  const [customerPhone, setCustomerPhone] = useState('+91 98301 44556');
+  const [customerName, setCustomerName] = useState(
+    customerDetails?.name || user?.name || 'Abhijit Sen'
+  );
+  const [customerPhone, setCustomerPhone] = useState(
+    customerDetails?.phone || user?.phone || '+91 98301 23456'
+  );
   const [detailedAddress, setDetailedAddress] = useState(customerLocation.address);
   const [tableNumber, setTableNumber] = useState('Table 4 (Courtyard)');
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('upi');
+
+  // Auto-sync when customer location or details change
+  React.useEffect(() => {
+    if (customerDetails?.name) setCustomerName(customerDetails.name);
+    if (customerDetails?.phone) setCustomerPhone(customerDetails.phone);
+    if (customerLocation?.address) setDetailedAddress(customerLocation.address);
+  }, [customerDetails, customerLocation]);
 
   // Simulation states
   const [isProcessing, setIsProcessing] = useState(false);

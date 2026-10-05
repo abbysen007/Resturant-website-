@@ -58,10 +58,10 @@ export const MenuSection: React.FC = () => {
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-extrabold whitespace-nowrap transition-all cursor-pointer ${
+              className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-extrabold whitespace-nowrap transition-all cursor-pointer border-0 ${
                 isActive
                   ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-md shadow-orange-500/20'
-                  : 'bg-white hover:bg-orange-50/60 text-stone-600 border border-stone-200 hover:border-orange-300'
+                  : 'bg-white/80 backdrop-blur-md hover:bg-white text-stone-600 shadow-2xs hover:shadow-sm'
               }`}
             >
               <span>{cat.label}</span>
@@ -79,31 +79,31 @@ export const MenuSection: React.FC = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search Bengali dishes (e.g. Ilish, Kosha, Posto)..."
-            className="w-full pl-9 pr-4 py-2 rounded-full border border-stone-300 text-xs sm:text-sm outline-hidden focus:border-amber-500 bg-white"
+            className="w-full pl-9 pr-4 py-2.5 rounded-full border-0 shadow-xs text-xs sm:text-sm outline-hidden focus:ring-2 focus:ring-orange-400 bg-white/85 backdrop-blur-md"
           />
         </div>
 
-        <div className="flex bg-stone-100 p-1 rounded-full text-xs font-bold text-slate-700">
+        <div className="flex bg-white/80 backdrop-blur-md p-1 rounded-full text-xs font-bold text-slate-700 shadow-xs border-0">
           <button
             onClick={() => setDietaryFilter('all')}
-            className={`px-3 py-1 rounded-full cursor-pointer transition-colors ${
-              dietaryFilter === 'all' ? 'bg-white shadow-xs' : ''
+            className={`px-3 py-1 rounded-full cursor-pointer transition-colors border-0 ${
+              dietaryFilter === 'all' ? 'bg-orange-500 text-white shadow-2xs' : 'text-stone-600'
             }`}
           >
             All
           </button>
           <button
             onClick={() => setDietaryFilter('veg')}
-            className={`px-3 py-1 rounded-full cursor-pointer transition-colors ${
-              dietaryFilter === 'veg' ? 'bg-emerald-600 text-white' : ''
+            className={`px-3 py-1 rounded-full cursor-pointer transition-colors border-0 ${
+              dietaryFilter === 'veg' ? 'bg-emerald-600 text-white shadow-2xs' : 'text-stone-600'
             }`}
           >
             Veg
           </button>
           <button
             onClick={() => setDietaryFilter('non-veg')}
-            className={`px-3 py-1 rounded-full cursor-pointer transition-colors ${
-              dietaryFilter === 'non-veg' ? 'bg-rose-600 text-white' : ''
+            className={`px-3 py-1 rounded-full cursor-pointer transition-colors border-0 ${
+              dietaryFilter === 'non-veg' ? 'bg-rose-600 text-white shadow-2xs' : 'text-stone-600'
             }`}
           >
             Non-Veg
